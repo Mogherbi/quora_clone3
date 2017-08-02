@@ -1,0 +1,48 @@
+<p>Welcome to our new customer database. Here you can put all your valuable secret information, and trust that none of it is secure. Hope you dont blames us when you get hacked! </p>
+
+
+
+<!-- <h2>Your user name is <%= @userName %> ! And your user key is <%= @password %> and you are from the city called <%= @var %> </h2>
+ -->
+
+
+ <h2>Your user name is listed below  ! And your user key is also below` and you are from the city below. Additionaly, here are the rest of the client base infomation so that we can create a sales drive campaign to target customers in the north eastern corridor for Christmas season:
+ <!-- <% @all_clinets.each do |single|%> -->
+ <!-- so we created a loop using .each that causes the program to check all the rows, one by one, and to store and store each row into |single| which is a variable we created  -->
+ <!-- <br>
+ <br>
+<%= single [:visitor_name] %>
+<br>
+<br>
+<%= single [:visitor_pw] %>
+<br>
+<br>
+<%= single [:visitor_city] %>
+
+
+ <% end %> -->
+ </h2>
+
+<table style="width:100%">
+<thead>
+  <tr>
+      <td>user name</td>
+      <td>user email</td>
+      <td>password</td>
+      <td>your city</td>
+</tr>
+</thead>
+
+<tbody>
+  <% @all_clinets.each do |single|%>
+  <tr>
+
+    <td><%= single.visitor_name %></td>
+    <td><%= single.email %></td>
+    <td><%= single.password_digest %></td>
+    <td><%= single.visitor_city %></td>
+  </tr>
+  <% end %>
+</tbody>
+
+</table>

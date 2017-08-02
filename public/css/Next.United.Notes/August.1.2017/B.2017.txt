@@ -1,0 +1,113 @@
+****Copied from https://learn.co/lessons/sinatra-activerecord-associations Flat Iron School of New York ********
+SINATRA FROM SCRATCH:
+https://learn.co/lessons/sinatra-from-scratch-readme
+
+REVIEW: CREATING A TABLE WITH ACTIVERECORD
+First, we create a cats table from the command line:
+
+rake db:create_migration NAME="create_cats"
+
+This will give us an empty migration in our db/migrate/ folder. Now lets give our cats table attributes: name, age and breed. This will go into our change method.
+
+class CreateCats < ActiveRecord::Migration
+  def change
+    create_table :cats do |t|
+      t.string :name
+      t.integer :age
+      t.string :breed
+    end
+  end
+end
+
+A primary key uniquely identifies each record in a table. It must be unique and cannot have NULL values. Luckily, ActiveRecord will create the primary key for us and will also auto-increment it every time we save a new row in our table.
+Go ahead and use Tux to create three instances of the Cat class:
+
+Cat.create(:name => "Maru", :age => 3, :breed => "Scottish Fold")
+Cat.create(:name => "Hannah", :age => 2, :breed => "Tabby")
+Cat.create(:name => "Patches", :age => 2, :breed => "Calico")
+
+And two instances of our Owner class:
+
+Owner.create(:name => "Sophie")
+Owner.create(:name => "Ann")
+
+Our cats table looks like this:
+
+id	   name	     age	    breed
+1	     Maru	     3	      Scottish Fold
+2	     Hannah	   2	      Tabby
+3	     Patches	 2	      Calico
+
+
+Our owners table looks like this:
+
+id	   name
+1	     Sophie
+2	     Ann
+
+
+Now, we need to tell our tables how to relate to each other. This is where we'll use a foreign key.
+
+USING FOREIGN KEYS
+A foreign key points to a primary key in another table. In ActiveRecord we will use the tablename_id convention. To add the foreign key to our cats table, we will create another migration.
+The foreign key always sits on the table of the object that belong to it. In this case, because cats belong to an owner, the owner_id becomes a column in the cats table.
+
+class AddColumnToCats < ActiveRecord::Migration
+  def change
+    add_column :cats, :owner_id, :integer
+  end
+end
+
+Our cats table should look like this:
+
+id	     name	     age	      breed	             owner_id
+1	       Maru	      3	        Scottish Fold	     1
+2	       Hannah	    2	        Tabby	             2
+3	       Patches	  2	        Calico	           1
+
+We now know what our table should look like. However, we haven't told our application how to relate the models to each other.
+
+
+BELONG_TO AND HAS_MANY
+Before we write our association let's think about our table structure: A cat belongs to an owner, and an owner can have many cats.
+This translates into ruby like this, while also inheriting from "ActiveRecord::Base" :
+
+class Cat < ActiveRecord::Base
+  belongs_to :owner
+end
+
+class Owner < ActiveRecord::Base
+  has_many :cats
+end
+
+Whenever we use a has_many we also have to use the belongs_to (and vice-versa) in the other model. Keep in mind: The model with the belongs_to association also has the foreign key.
+
+CREATING OBJECTS
+After setting our associations, we can create a cat and a owner and save them to our database. Try using Tux to play around. Create objects, view them, edit them, delete them!
+
+sophie = Owner.create(name: "Sophie")
+maru = Cat.new(name: "Maru", age: 3, breed: "Scottish Fold")
+maru.owner = sophie
+maru.save
+
+We used the .create method to instantiate and save the owner to our database. To instantiate the cat object we used the .new method, after that we set "Maru's" owner to the owner we created. Because the .new method did not save the cat object to our database the last line will persist the cat object to our database.
+The has_many/belongs_to relationship is the most used association, but there are others as well. You can read more about ActiveRecord Associations here(http://guides.rubyonrails.org/association_basics.html).
+***************************************
+
+A NOTE ON SEED FILES
+The phrase 'seeding the database' refers to the practice of filling up your database with some dummy data. As we develop our apps, it is essential that we have some data to work with. Otherwise, we won't be able to tell if our app is working or try out the actions and features that we are building. Sinatra makes it easy for us to seed our database by providing us with something called a seed file. This file should be placed in the db directory, db/seeds.rb. The seed file is where you can write code that creates and saves instances of your models.
+
+When you run the seed task provided by Sinatra and Rake, rake db:seed, the code in the seed file will be executed, inserting some sample data into your database.
+Go ahead and open up the seed file in this app, db/seeds.rb. You should see the following:
+
+ # Add seed data here. Seed your database with `rake db:seed`
+sophie = Owner.create(name: "Sophie")
+Pet.create(name: "Maddy", owner: sophie)
+Pet.create(name: "Nona", owner: sophie)
+
+
+This is code you should be pretty familiar with by now. We are simply creating and saving an instance of our Owner class and creating and saving two new instances of the Pet class.
+So, when rake db:seed is run, the code in this file is actually executed, inserting the data regarding Sophie, Maddy, and Nona into our database.
+You can write code to seed your database in any number of ways. We've done it fairly simply here, but you could imagine writing code in your seed file that sends a request to an external API and instantiates and saves instances of a class using the response from the API. You could also write code that opens a directory of files and uses information about each file to create and save instances of a class. The list goes on.
+
+Important: In Sinatra, the order in which you define your routes in a controller matters. Routes are matched in the order they are defined. So, if we were to define the get '/posts/:id' route before the get 'posts/new' route, Sinatra would feed all requests for posts/new to the posts/:id route and we should see an error telling us that your app is unable to find a Post instance with an id of "new". The takeaway is that you should define your /new route before your /posts/:id route.

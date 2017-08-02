@@ -1,0 +1,66 @@
+the first thing we need to see is the "Controller" folder.
+Controller>Static.erb  = is the brain of the web app, and all things must pass through this file, like a processor unit of the web app.
+
+redirect "/" : redirects to another path, perhaps a file within folders or within director or to another website using an http ref
+
+erb is essentially a predefined method within Sinatra
+
+whenever you redirect, if its supposed to show an http page, it must end with an erb. if you dont have an erb then nothing will happen. What we are doing is going to (for an example, like google), we are required to have a resource.
+
+how do we bring a variable to a user path?:
+using @ sign tells it that the class name after
+
+--31 July. 2017--
+how do i show in TERMINAL how to display all the users database?
+
+In a RESTful Web service, requests made to a resource's URI will elicit a response that may be in XML, HTML, JSON or some other defined format. The response may confirm that some alteration has been made to the stored resource, and it may provide hypertext links to other related resources or collections of resources. Using HTTP, as is most common, the kind of operations available include those predefined by the HTTP verbs GET, POST, PUT, DELETE and so on.
+-------------------------------31 JULY 2017 PM SESSION-----------------------------------------------
+In Sinatra, a route is an HTTP method paired with a URL-matching pattern. Each route is associated with a block:
+
+get '/' do
+  .. show something ..
+end
+
+post '/' do
+  .. create something ..
+end
+
+put '/' do
+  .. replace something ..
+end
+
+patch '/' do
+  .. modify something ..
+end
+
+delete '/' do
+  .. annihilate something ..
+end
+
+options '/' do
+  .. appease something ..
+end
+
+link '/' do
+  .. affiliate something ..
+end
+
+unlink '/' do
+  .. separate something ..
+end
+
+
+Routes are matched in the order they are defined. The first route that matches the request is invoked.
+
+Routes with trailing slashes are different from the ones without:
+
+get '/foo' do
+  # Does not match "GET /foo/"
+end
+Route patterns may include named parameters, accessible via the params hash:
+
+get '/hello/:name' do
+  # matches "GET /hello/foo" and "GET /hello/bar"
+  # params['name'] is 'foo' or 'bar'
+  "Hello #{params['name']}!"
+end

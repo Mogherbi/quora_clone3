@@ -1,0 +1,15 @@
+to commit and push changes to Heroku
+1- make my changes to my local files
+2- test it on my 127.0.0.1:9393 or see link below: (http://127.0.0.1:9393) by typing into my terminal :
+    - $ rake server
+3- when its successful or i approve changes: do below steps:
+
+$ git add .
+$ git commit
+- (enter commit message e.g. "i changed background color")
+- esc
+- :wq!
+
+$ git push (origin/heroku) master
+
+*****************************************

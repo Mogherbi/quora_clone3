@@ -1,0 +1,17 @@
+<h1>Welcome back to Questions World!</h1>
+<h3>A Community of Lost People finding Answers to everyday questions, like how long is a toilet paper roll? Converted to inches?</3>
+  <p>Thi is my first ever web application, and i am really excited to build it. Clearly this is a first, and there will be many bugs. Bear with us as we work to make this a fun place to post, ask, and get answers to your life's questions.</p>
+  <h4>Existing Questionsers can log in below; new users can be redirected to the sign up page by clicking "Sign Me Up to Ask Questions" Link below: </h4>
+  <a href="http://yahoo.com/news">Sign Me Up to Ask Questions</a>
+  <!-- the href above should now redirect to the main page to create a new account and possibly to verify user email is real??? Also, use a "captcha phrase/image"??  -->
+  <br>
+  <br>
+  <!-- Below is the webform, which asks for values from user. we have the type of the input which is mostly text value, and the name we assign to it which is "userName" along with the placehorlder which is in this case called "user Email or Id" and this appears on the entry form.
+Method below means: we have three choices of three methods: post, get. the post method is apparently more secure according to Shin Yin, in order to convey information. when the user clicks on the butto proceed, it leads them to the method type of post and then takes the aciton of new path called '/newAccount'. These two things must be defined in the brain file which is the static.rb -->
+
+
+<form method=post action=/logout>
+
+    <input type=submit value="Logout">
+</form>
+<!-- we can use params in our terminal to find out the value of inputted data such as user name or password by entering: $ params[:userName] for example and it will return the value of the variable we asked for, in this case the user name. -->

@@ -1,0 +1,150 @@
+get "users", to: "users#index"
+# http GET method, In this instance, gets a list of users
+
+get "users/:id", to: "users#show"
+# In this instance, gets a specific user via the provided id.  For example: /users/3882
+
+post "users", to: "users#create"
+# http POST method, In this instance, used for creating a user.
+
+put "users/:id"
+# http PUT method, used for updating a resource, In this instance, updates the user.  Older versions of Rails used this for all updates.
+
+patch "users/:id"
+#  http PATCH method.  in this instance, used to partially update the user's information.
+
+delete "users/:id"
+# http DELETE method.  In this instance, used to delete a user.
+
+All of the methods listed above use HTTP methods to tell Rails what methods to call on the controller. They are so important that Rails includes 2 special keywords to automatically create them. The first, resources tells Rails you wish to specify the above actions for a given controller):
+
+5 Verbs:
+3 P's (Post, Put, Patch), 1 G (Get), 1 D (Delete)
+
+config/routes.rb:
+resources :users
+# generates:
+#   get "/users" -- index on your controller
+#   get "/users/:id" -- show on your controller
+#   get "/users/new" -- new method on your controller
+#   post "/users" -- create on your controller
+#   get "/users/:id/edit" -- edit method on your controller
+#   put "/users/:id" -- update on your controller
+#   patch "/users/:id" -- update on your controller
+#   delete "/users/:id" -- destroy on your controller
+
+The second keyword, resource (no collection), is used if you are interacting with a single resource. In this case, certain routes are omitted.
+
+config/routes.rb:
+resource :privacy_policy
+# generates:
+#   get "/privacy_policy" -- show on your controller
+#   get "/privacy_policy/new" -- new method on your controller
+#   post "/privacy_policy" -- create on your controller
+#   get "/privacy_policy/edit" -- edit method on your controller
+#   put "/privacy_policy" -- update on your controller
+#   patch "/privacy_policy" -- update on your controller
+#   delete "/privacy_policy" -- destroy on your controller
+In the above block of code you will notice slight differences compared to resources. A singular resource is typically used when there is only one instance of a given resource. For instance, on a given website, there may only be one privacy policy, not many.
+**************************************************
+One important thing to note is that any resources you specify in your routes file as well as the controllers you make do NOT necessarily correspond to your models. For instance, it's entirely possible to have a controller that does a web request or one that modifies more than one model. There is nothing wrong with this.
+***************************************************
+You can quickly and easily skip certain actions for both resource and resources. To do this you use either the except keyword or only keyword. As their names imply, the except keyword tells rails to create all actions except the ones you specify, while the only keyword tells Rails to only create the given routes.
+
+config/routes.rb:
+resources :users, except: [:show]
+# generates actions for everything except for get "/users/:id"
+
+resource :privacy_policy, only: [:show]
+# only generate the get "/privacy_policy route for the Privacy Policy.
+
+Custom Actions
+
+In certain cases, you may wish to have custom actions. These actions may either be on an individual resource (/users/:id) or a collection of resources (/users).
+
+config/routes.rb:
+resources "posts" do
+  put :rate # generate put "/posts/:id/rate_up"
+end
+
+resources "products"  do
+  collection do
+    get "most_popular" # generate  get "/products/most_popular"
+  end
+end
+
+Custom actions typically come in handy to either make the URL more meaningful or to imply more functionality.
+
+Nested Resources
+
+Resources can also be nested:
+
+config/routes.rb:
+resources :users do
+   resources :posts
+end
+This would create what is called a nested resource. This lets you do things like http://yourdomain.com/users/4/posts/, which would list all of the posts for that specific user. Your controller would then receive a user_id parameter as an argument.
+
+Aliasing and Redirects
+
+You can also create aliases for URLs. This means you can have a user friendly url such as http://yourdomain.com/login call a specific controller and action, the new action on your sessions controller for example.
+
+config/routes.rb:
+get 'login', to: 'sessions#new'
+get 'logout', to: "sessions#destroy"
+You can also redirect legacy URLs to new locations using a similar mechanism. For instance:
+
+config/routes.rb:
+get 'webcatalog/', to: redirect("/products")
+# redirect http://mydomain.com/webcatalog/ to http://mydomain.com/products
+
+get "/webcatalog/product_info.php", to: redirect {|params, req|
+    begin
+      id = req.params[:products_id]
+      product = Product.find(id)
+      "/products/#{product.slug}"
+    rescue
+      "/products"
+    end
+}
+
+# Slightly more advanced example that uses a block to redirect from an OSCommerce page to a Rails style URL.
+
+Constraints
+
+You can also specify constraints. For instance, let's say you want to constrain certain actions to a particular subdomain. You can do so with the following code.
+
+routes.rb:
+constraints subdomain: 'api' do
+  resources :products do
+end
+Constraints can be even more advanced, for example, the following constraint checks to see if the user is using an iPhone:
+
+routes.rb:
+constraints(lambda { |req| req.env["HTTP_USER_AGENT"] =~ /iPhone/ }) do
+  resources :products
+end
+For really advanced constraints, you can create a class. For example, the following code does the exact same thing as before:
+
+iphone.rb:
+class Iphone
+  def self.matches?(request)
+    request.env["HTTP_USER_AGENT"] =~ /iPhone/
+  end
+end
+
+routes.rb:
+constraints(Iphone) do
+  resources :products
+end
+Namespaces
+
+You can have custom namespaces as well. Everything in a namespace will be prefixed by the namespace. For instance:
+
+routes.rb:
+namespace :admin do
+  get 'posts' => "posts#index" # http://yourapp.com/admin/posts
+end
+
+
+*********** ABOVE WAS SOURCED FROM ONLINE SITE: https://richonrails.com/articles/understanding-rails-routing ***********

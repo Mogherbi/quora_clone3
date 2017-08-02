@@ -1,0 +1,7 @@
+ <!-- looking at the code below, we are using the scripting and substitution tags where at line 3, @client is being displayed. -->
+<% if current_user == @clinet %>
+Your email is stored as: <%= @clinet.email %>
+<% else %>
+<p>Warning! You do not have permission to view this profile.</p>
+
+<% end %>

@@ -9,3 +9,8 @@ thead, tr {
     padding: 55px;
     text-align: left;
 }
+
+
+.navbar-inverse{
+  background-color: gray;
+}

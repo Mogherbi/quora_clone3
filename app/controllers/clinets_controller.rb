@@ -21,5 +21,5 @@ get '/clinets/:id' do #here the 'get' method is called with an argument of '/cli
 
   @clinet = Clinet.find(params[:id])
   #look for this clinet from the database based on the id that u see on the path
-  erb :'clinets/show'
+  erb :'clinets/show', layout: false
 end

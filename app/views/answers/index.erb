@@ -1,0 +1,79 @@
+<body>
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a style = "color:red" class="navbar-brand" href="/">Questions World</a>
+    </div>
+    <br>
+
+    <br>
+
+    <form id= 'create_question' action="/questions" method="post">
+      <!-- <input style="width: 20%; height: 20px" id="text_input" type="text" name="question[subject]" placeholder="What subject are you asking about? Ask and you shall receive!"> -->
+      <input style="width: 50%; height: 50px" id="text_input" type="text" name="question[description]" placeholder="Ask Questions World something! Ask and you shall receive!">
+      <input style="color:red" id='AskUs' type="Submit" value="Ask!">
+    </form>
+<!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+
+      </li>
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+
+      <li><a  style = "color:#000000" href="#"> Hey  Ask a question here! </a></li>
+      <li class="dropdown">
+    <a style = "color:#191970"  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">MENU / LANGUAGE<span class="caret"></span></a>
+    <ul class="dropdown-menu">
+        <li><a href="#">Your Content</a></li>
+        <li><a href="/questions"> Past Questions</a></li>
+        <li><a href="/answers"> Past Answers</a></li>
+        <li><a href="/messages"> Messages</a></li>
+        <li><a href="#"> User Profile</a></li>
+        <li><a href="#">English</a></li>
+        <li><a href="#">عربي</a></li>
+        <li><a href="#">Türkçe</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a href="#">Your Profile Settings</a></li>
+        <li><a href="/">Log Out</a></li>
+      </ul>
+    </li>
+  </ul>
+</div><!-- /.navbar-collapse -->
+</div><!-- /.container-fluid -->
+</nav>
+
+
+<!-- # <% if current_user == @clinet %>
+# Your email is stored as: <%= @clinet.email %>
+# <% else %>
+# <p>Warning! You do not have permission to view this profile.</p> -->
+
+<% end %>
+
+<br>
+<br>
+Welcome to your past answer's page. Remember, the best questions are precise questions:
+
+
+
+
+
+<style>
+  .navbar-inverse{
+    background-color: #AFEEEE;
+  }
+</style>
+
+</body>
+
+<h1>Below is an index of my past answers!</h1>

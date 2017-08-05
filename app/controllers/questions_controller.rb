@@ -1,7 +1,10 @@
 post '/questions' do
+  # byebug
   @question = current_user.questions.new(params[:question])
   if @question.save
     # redirect to the question show page
+
+    # byebug
     redirect "/questions/#{@question.id}"
   else
     redirect "/clinet/#{current_user.id}"

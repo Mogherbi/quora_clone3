@@ -1,4 +1,4 @@
-
+<% if !logged_in? %>
 <h1>Welcome to Questions World!</h1>
 <p>Question World is an online people space where you can ask questions and get answers from our friendly community of users. You can post a new question, or read through questions posted from other users. You can easily read through the anwers and find the one that suits you best; in doing so, you may vote up or down on the question (to which brings the particular question to higher or lower postion in the stack). You can also vote on the answers, and usually the answers that receive the highest votes, get the most attention! Be a star in our community, and join the conversation! Sign up blow for a new account, or log in if you are already an existing Answerer/Questioner! </p>
 
@@ -47,3 +47,6 @@
 # <%= (x+y) * 10 %> -->
 <!-- # <%= @variable %> -->
 <!-- having an '=' sign in front of the modulu '%' sign means the code after it is displayed -->
+<% else %>
+<% redirect "/clinets/#{current_user.id}" %>
+<% end %>

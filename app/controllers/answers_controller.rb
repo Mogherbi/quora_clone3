@@ -7,7 +7,7 @@ post '/answers' do
     # redirect to the question show page
     redirect "/answers/#{@answer.id}"
   else
-    redirect "/clinet/#{current_user.id}"
+    redirect "/clinets/#{current_user.id}"
   end
 
 else

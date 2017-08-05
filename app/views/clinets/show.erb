@@ -1,4 +1,5 @@
  <!-- looking at the code below, we are using the scripting and substitution tags where at line 3, @client is being displayed. -->
+ <% if logged_in? %>
  <head>
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
      <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
@@ -52,7 +53,7 @@
         <li><a href="#">Türkçe</a></li>
         <li role="separator" class="divider"></li>
         <li><a href="#">Your Profile Settings</a></li>
-        <li><a href="/">Log Out</a></li>
+        <li><a href="/logout">Log Out</a></li>
       </ul>
     </li>
   </ul>
@@ -83,3 +84,7 @@ Welcome to your profile page. Remember, the best questions are precise questions
 </style>
 
 </body>
+<% else %>
+<%= "Warning! You dont have permission!"%>
+<a href="/">Click here to return to home page</a>
+<%end%>

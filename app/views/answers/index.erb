@@ -1,3 +1,4 @@
+<% if logged_in? %>
 <body>
 
   <nav class="navbar navbar-inverse">
@@ -44,7 +45,7 @@
         <li><a href="#">Türkçe</a></li>
         <li role="separator" class="divider"></li>
         <li><a href="#">Your Profile Settings</a></li>
-        <li><a href="/">Log Out</a></li>
+        <li><a href="/logout">Log Out</a></li>
       </ul>
     </li>
   </ul>
@@ -77,3 +78,7 @@ Welcome to your past answer's page. Remember, the best questions are precise que
 </body>
 
 <h1>Below is an index of my past answers!</h1>
+<% else %>
+<%= "Warning, you dont have permssion to see past answers pages of users!" %>
+<a href="/">Click here to return to home page</a>
+<% end %>

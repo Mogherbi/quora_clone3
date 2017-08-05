@@ -1,3 +1,4 @@
+<% if logged_in? %>
 <body>
 
   <nav class="navbar navbar-inverse">
@@ -44,7 +45,7 @@
         <li><a href="#">Türkçe</a></li>
         <li role="separator" class="divider"></li>
         <li><a href="#">Your Profile Settings</a></li>
-        <li><a href="/">Log Out</a></li>
+        <li><a href="/logout">Log Out</a></li>
       </ul>
     </li>
   </ul>
@@ -77,3 +78,7 @@ This is where you will find your messages and interaction with your friends on Q
 </body>
 
 <h2> Here you will find answers you have submitted to other people's questions. Way to go, keep it up and help people find the right answer!</h2>
+<% else %>
+<%= "Warning, you dont have permssion to see past message pages of users!" %>
+<a href="/">Click here to return to home page</a>
+<% end %>

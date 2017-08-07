@@ -1,5 +1,5 @@
 <% if logged_in? %>
-<body>
+
 
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -63,16 +63,44 @@
 
 <br>
 <br>
-Welcome to your past questions page. Remember, the best questions are precise questions:
+<h1>Welcome to your past questions page. Remember, the best questions are precise questions:</h1>
 
 <% user_questions=current_user.questions %>
 <% user_questions.each do |q| %>
-<h4> Subject: <%= q.subject %> </h4>
-<h5> Description: <%= q.description %> </h5>
-<h6> Time Stamp: <%= q.created_at %> </h6>
-<br> ******************************
-<br> ******************************
-  <% end %>
+  <div class="question_container">
+    <h4> Subject: <%= q.subject %> </h4>
+    <h5> Description: <%= q.description %> </h5>
+    <h6> Time Stamp: <%= q.created_at %> </h6>
+    <br> ******************************
+    <br> ******************************
+
+    <form method="post" action="/questions/<%=q.id%>/answers">
+      <input type="text" name="answer[reply]">
+      <input type="submit" value="Answer!" >
+    </form>
+
+    This is the latest answers for this question:
+    <ol>
+      <% q.answers.all.order("created_at DESC").each do |ans| %>
+        <li><%= ans.reply %>, answered by <%= ans.clinet.email %></li>
+      <% end %>
+
+    </ol>
+
+  </div>
+<% end %>
+
+<h1>Above: my past Questions!</h1>
+
+<% else %>
+<div class="alert alert-danger">
+  <%= "Warning, you dont have permssion to see past questions pages of users!" %>
+</div>
+
+
+<a href="/">Click here to return to home page</a>
+<% end %>
+
 
 
 
@@ -80,12 +108,10 @@ Welcome to your past questions page. Remember, the best questions are precise qu
   .navbar-inverse{
     background-color: #AFEEEE;
   }
+
+  .question_container{
+    background-color: #00cccc;
+  }
+
+
 </style>
-
-</body>
-<h1>Below is an index of my past Questions!</h1>
-
-<% else %>
-<%= "Warning, you dont have permssion to see past questions pages of users!" %>
-<a href="/">Click here to return to home page</a>
-<% end %>

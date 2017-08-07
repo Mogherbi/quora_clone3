@@ -1,9 +1,13 @@
-# Specify gemfile Location and general variables
+  # Specify gemfile Location and general variables
 ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../../Gemfile', __FILE__)
 
 # Perform requiring gem that we need
 ######################################################################
 	# basic
+  # require 'will_paginate'
+ # require 'will_paginate/finders/active_record'
+  # require 'will_paginate'
+require 'byebug'
 require 'rubygems'
 require 'bundler/setup' if File.exists?(ENV['BUNDLE_GEMFILE'])
 require 'pathname'

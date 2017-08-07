@@ -2,4 +2,5 @@ class Clinet < ActiveRecord::Base #the version should be stated in the migration
 	# This is Sinatra! Remember to create a migration!
   has_secure_password
   has_many :questions
+  has_many :answers
 end

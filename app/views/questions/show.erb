@@ -11,5 +11,18 @@ Subject: <%= @question.subject %>
 
 <br>
 Description: <%= @question.description %>
+<a href="/">Click here to return</a>
 
+<form method="post" action="/questions/<%=@question.id%>/answers">
+  <input type="text" name="answer[reply]">
+  <input type="submit" value="Answer!" >
+</form>
+
+these are the answers for this question:
+<ol>
+  <% @question.answers.each do |ans| %>
+    <li><%= ans.reply %>, answered by <%= ans.clinet.email %></li>
+  <% end %>
+
+</ol>
 </body>

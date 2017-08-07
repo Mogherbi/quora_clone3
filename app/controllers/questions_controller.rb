@@ -1,3 +1,5 @@
+# include WillPaginate::Sinatra::Helpers
+
 post '/questions' do
   # byebug
   @question = current_user.questions.new(params[:question])
@@ -21,5 +23,7 @@ get "/questions/:question_id" do
 end
 
 get "/questions" do
+  # byebug
+  @questions = Question.all
   erb :"questions/index"
 end

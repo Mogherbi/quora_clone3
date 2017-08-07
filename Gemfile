@@ -1,8 +1,9 @@
 source 'https://rubygems.org'
 
 # Ruby Version
-# ruby "2.2.1"
-
+ruby "2.4.0"
+gem 'will_paginate', '~> 3.1.6'
+gem 'bootstrap-will_paginate'
 # Adding Sinatra Drivers
 gem 'sinatra'
 gem 'sinatra-contrib'

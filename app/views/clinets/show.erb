@@ -73,6 +73,16 @@ Your email is stored as: <%= @clinet.email %>
 <br>
 Welcome to your profile page. Remember, the best questions are precise questions:
 
+<% @questions.each do |question| %>
+  <div>
+    <h2>Asked on: <%= question.subject %> </h2>
+    <p>Asked on:  <%= question.description %> </p>
+    <p>Date: <%= question.created_at %> </p>
+    <p>User:  <%= question.clinet.email %> </p>
+
+  </div>
+
+<% end %>
 
 
 

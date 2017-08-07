@@ -20,6 +20,7 @@ end
 get '/clinets/:id' do #here the 'get' method is called with an argument of '/clinets/:id' and is being invoked with a block which is the code between the 'do' and the 'end'.
 
   @clinet = Clinet.find(params[:id])
+  @questions = Question.limit(10).order(created_at: :desc)
   #look for this clinet from the database based on the id that u see on the path
   erb :'clinets/show', layout: false
 end

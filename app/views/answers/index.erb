@@ -31,11 +31,11 @@
 
     <ul class="nav navbar-nav navbar-right">
 
-      <li><a  style = "color:#000000" href="#"> Hey  Ask a question here! </a></li>
+      <li><a  style = "color:#000000" href="/"> Hey, <%= current_user.email %>  Ask a question here! </a></li>
       <li class="dropdown">
     <a style = "color:#191970"  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">MENU / LANGUAGE<span class="caret"></span></a>
     <ul class="dropdown-menu">
-        <li><a href="#">Your Content</a></li>
+        <li><a href="/questions">Your Content</a></li>
         <li><a href="/questions"> Past Questions</a></li>
         <li><a href="/answers"> Past Answers</a></li>
         <li><a href="/messages"> Messages</a></li>
@@ -60,6 +60,30 @@
 # <p>Warning! You do not have permission to view this profile.</p> -->
 
 <% end %>
+<% user_questions=current_user.questions %>
+<% user_questions.each do |q| %>
+  <div class="question_container">
+    <h4> Subject: <%= q.subject %> </h4>
+    <h5> Description: <%= q.description %> </h5>
+    <h6> Time Stamp: <%= q.created_at %> </h6>
+    <br> ******************************
+    <br> ******************************
+
+    <form method="post" action="/questions/<%=q.id%>/answers">
+      <input type="text" name="answer[reply]">
+      <input type="submit" value="Answer!" >
+    </form>
+
+    This is the latest answers for this question:
+    <ol>
+      <% q.answers.all.order("created_at DESC").each do |ans| %>
+        <li><%= ans.reply %>, answered by <%= ans.clinet.email %></li>
+      <% end %>
+
+    </ol>
+
+  </div>
+<% end %>
 
 <br>
 <br>
@@ -72,6 +96,10 @@ Welcome to your past answer's page. Remember, the best questions are precise que
 <style>
   .navbar-inverse{
     background-color: #AFEEEE;
+  }
+
+  .question_container{
+    background-color: #d1b3ff;
   }
 </style>
 
